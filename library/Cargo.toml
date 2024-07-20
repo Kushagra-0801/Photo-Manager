@@ -1,0 +1,10 @@
+[package]
+name = "library"
+version = "0.1.0"
+edition = "2021"
+authors = ["Kushagra Gupta <kushgpt08@gmail.com>"]
+rust-version = "1.79"
+license = "MIT"
+
+
+[dependencies]
