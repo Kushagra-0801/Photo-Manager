@@ -2,8 +2,7 @@
 
 use std::error::Error;
 
-// #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-// pub struct ImageId(u32);
+use serde::{Deserialize, Serialize};
 
 pub type ImageId = u32;
 
@@ -13,6 +12,7 @@ pub type ImageId = u32;
 ///     available_formats: vec!["jpg", "png", "webp"],
 ///     tags: vec!["abc", "def"]
 /// }
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ImageMetadata {
     pub id: ImageId,
     pub available_formats: Vec<String>,
@@ -24,8 +24,8 @@ pub struct ImageData {
     pub data: Vec<u8>,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
-pub struct Tag(String);
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
+pub struct Tag(pub String);
 
 pub struct TagGraph {}
 
@@ -38,7 +38,7 @@ pub struct Query {
     pub tags: Vec<Tag>,
 }
 
-type Result<T> = std::result::Result<T, Box<dyn Error>>;
+pub type Result<T> = std::result::Result<T, Box<dyn Error>>;
 
 #[allow(async_fn_in_trait)]
 pub trait Library {
@@ -95,5 +95,8 @@ impl Library for () {
 }
 
 pub fn format_to_mimetype(format: &str) -> &'static str {
-    todo!()
+    match format {
+        "jpeg" => "image/jpeg",
+        _ => unimplemented!(),
+    }
 }

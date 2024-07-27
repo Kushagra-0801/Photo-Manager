@@ -8,3 +8,4 @@ license = "MIT"
 
 
 [dependencies]
+serde = { version = "1.0.204", features = ["derive"] }

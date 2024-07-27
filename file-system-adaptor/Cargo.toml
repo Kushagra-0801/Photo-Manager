@@ -7,3 +7,4 @@ rust-version = "1.79"
 license = "MIT"
 
 [dependencies]
+library = { path = "../library" }
