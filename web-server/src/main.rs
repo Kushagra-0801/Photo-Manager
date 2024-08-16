@@ -40,12 +40,17 @@ async fn main() {
 }
 
 /// Returns the metadata containing { id, thumbnail?, [{ format, size, dimensions, url }] }
-async fn get_image(Path(image_id): Path<String>) {
-    let _ = image_id;
-    todo!()
+#[debug_handler]
+async fn get_image(
+    State(library): State<Lib>,
+    Path(image_id): Path<ImageId>,
+) -> Json<library::ImageMetadata> {
+    let image = library.lock().await.find_image(image_id).await.unwrap();
+    Json(image)
 }
 
 /// Removes from the library
+#[debug_handler]
 async fn remove_image(Path(image_id): Path<String>) {
     let _ = image_id;
     todo!()
